@@ -1,26 +1,28 @@
 package com.visu.align.ims.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.math.BigDecimal;
-
-import static javax.persistence.GenerationType.IDENTITY;
 
 @Entity
 @Table(name = "products")
 public class Product {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", unique = true, nullable = false)
     private long id;
+
+    @Column(name = "name")
     private String name;
+
+    @Column(name = "brand")
     private String brand;
+
+    @Column(name = "price")
     private BigDecimal price;
+
+    @Column(name = "quantity")
     private int quantity;
 
-    @Id
-    @GeneratedValue(strategy = IDENTITY)
-    @Column(name = "id", unique = true, nullable = false)
     public long getId() {
         return id;
     }
@@ -29,7 +31,6 @@ public class Product {
         this.id = id;
     }
 
-    @Column(name = "name", unique = true, nullable = false)
     public String getName() {
         return name;
     }
@@ -38,7 +39,6 @@ public class Product {
         this.name = name;
     }
 
-    @Column(name = "brand", unique = true, nullable = false)
     public String getBrand() {
         return brand;
     }
@@ -47,7 +47,6 @@ public class Product {
         this.brand = brand;
     }
 
-    @Column(name = "price", unique = true, nullable = false)
     public BigDecimal getPrice() {
         return price;
     }
@@ -56,7 +55,6 @@ public class Product {
         this.price = price;
     }
 
-    @Column(name = "quantity", unique = true, nullable = false)
     public int getQuantity() {
         return quantity;
     }

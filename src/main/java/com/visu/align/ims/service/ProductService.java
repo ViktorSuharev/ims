@@ -6,9 +6,9 @@ import java.util.List;
 
 public interface ProductService {
 
-    Product getProductByName(String name);
+    List<Product> getProductByName(String name);
 
-    Product getProductByBrand(String brand);
+    List<Product> getProductByBrand(String brand);
 
     List<Product> getLeftOvers();
 

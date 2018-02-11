@@ -14,32 +14,32 @@ public class ProductServiceImpl implements ProductService {
     private ProductDao productDao;
 
     @Override
-    public Product getProductByName(String name) {
-        return null;
+    public List<Product> getProductByName(String name) {
+        return productDao.getProductByName(name);
     }
 
     @Override
-    public Product getProductByBrand(String brand) {
-        return null;
+    public List<Product> getProductByBrand(String brand) {
+        return productDao.getProductByBrand(brand);
     }
 
     @Override
     public List<Product> getLeftOvers() {
-        return null;
+        return productDao.getLeftovers();
     }
 
     @Override
     public void addProduct(Product product) {
-
+        productDao.addProduct(product);
     }
 
     @Override
     public void updateProduct(Product product) {
-
+        productDao.updateProduct(product);
     }
 
     @Override
     public void deleteProduct(Product product) {
-
+        productDao.deleteProduct(product);
     }
 }

@@ -5,11 +5,11 @@ import com.visu.align.ims.entity.Product;
 import java.util.List;
 
 public interface ProductDao {
-    Product getProductByName(String name);
+    List<Product> getProductByName(String name);
 
-    Product getProductByBrand(String brand);
+    List<Product> getProductByBrand(String brand);
 
-    List<Product> getLeftOvers();
+    List<Product> getLeftovers();
 
     void addProduct(Product product);
 
