@@ -17,7 +17,7 @@ public interface ProductService {
 
     void addProduct(Product product);
 
-    void updateProduct(BigInteger id, Product product);
+    void updateProduct(BigInteger id, Product updProduct);
 
     void deleteProduct(BigInteger id);
 }

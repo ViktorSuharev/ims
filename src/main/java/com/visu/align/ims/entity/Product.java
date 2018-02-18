@@ -1,5 +1,7 @@
 package com.visu.align.ims.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -24,6 +26,7 @@ public class Product {
     @Column(name = "quantity")
     private int quantity;
 
+    @JsonIgnore
     public BigInteger getId() {
         return id;
     }

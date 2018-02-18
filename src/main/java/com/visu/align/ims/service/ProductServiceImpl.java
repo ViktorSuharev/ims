@@ -4,17 +4,16 @@ import com.visu.align.ims.dao.ProductDao;
 import com.visu.align.ims.entity.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigInteger;
 import java.util.List;
 
-// TODO: 15.02.2018 Transactional or not?
 @Service
 public class ProductServiceImpl implements ProductService {
 
     @Autowired
     private ProductDao productDao;
-
 
     @Override
     public Product getProductById(BigInteger id) {
@@ -36,18 +35,23 @@ public class ProductServiceImpl implements ProductService {
         return productDao.getLeftovers();
     }
 
+    @Transactional
     @Override
     public void addProduct(Product product) {
         productDao.addProduct(product);
     }
 
+    @Transactional
     @Override
-    public void updateProduct(BigInteger id, Product product) {
-        productDao.updateProduct(product);
+    public void updateProduct(BigInteger id, Product updProduct) {
+        updProduct.setId(id);
+        productDao.updateProduct(updProduct);
     }
 
+    @Transactional
     @Override
     public void deleteProduct(BigInteger id) {
-        productDao.deleteProduct(id);
+        Product product = productDao.getProductById(id);
+        productDao.deleteProduct(product);
     }
 }

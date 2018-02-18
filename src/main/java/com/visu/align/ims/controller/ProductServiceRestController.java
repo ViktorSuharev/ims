@@ -1,13 +1,16 @@
 package com.visu.align.ims.controller;
 
 import com.visu.align.ims.controller.wrapper.ListWrapper;
+import com.visu.align.ims.controller.wrapper.MessageWrapper;
 import com.visu.align.ims.controller.wrapper.ObjectWrapper;
 import com.visu.align.ims.entity.Product;
 import com.visu.align.ims.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.ResourceSupport;
 import org.springframework.hateoas.mvc.ControllerLinkBuilder;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,21 +26,25 @@ import java.util.List;
 @RequestMapping("/products")
 public class ProductServiceRestController {
 
+    private static final String ADD_SUCCESS = "Adding is successful";
+    private static final String UPDATE_SUCCESS = "Putting is successful";
+    private static final String DELETE_SUCCESS = "Deleting is successful";
+
     @Autowired
     private ProductService productService;
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<ObjectWrapper> getProductById(@PathVariable("id") BigInteger id) {
         Product product = productService.getProductById(id);
-
         ObjectWrapper objWrapper = createProductWrapper(product);
+
         return buildResponse(objWrapper);
     }
 
     @RequestMapping(value = "/search/name/{name}", method = RequestMethod.GET)
-    public HttpEntity<ListWrapper> getProductsByName(@PathVariable("name") String name) {
+    public HttpEntity<ResourceSupport> getProductsByName(@PathVariable("name") String name) {
         List<Product> products = productService.getProductsByName(name);
-        ListWrapper listWrapper = getWrappedList(products);
+        ResourceSupport listWrapper = getWrappedList(products);
 
         return buildResponse(listWrapper);
     }
@@ -51,29 +58,35 @@ public class ProductServiceRestController {
     }
 
     @RequestMapping(value = "/leftovers", method = RequestMethod.GET)
-    public HttpEntity<ListWrapper> getLeftovers() {
+    public HttpEntity<ResourceSupport> getLeftovers() {
         List<Product> products = productService.getLeftovers();
-        ListWrapper listWrapper = getWrappedList(products);
+        ResourceSupport listWrapper = getWrappedList(products);
 
         return buildResponse(listWrapper);
     }
 
-    @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<?> addProduct(@RequestBody Product product) {
+    @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<String> addProduct(@RequestBody Product product) {
         productService.addProduct(product);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        ResourceSupport messageWrapper = new MessageWrapper("Add product");
+        messageWrapper.add(
+                ControllerLinkBuilder.linkTo(
+                        ControllerLinkBuilder.methodOn(ProductServiceRestController.class)
+                                .addProduct(product)).withSelfRel());
+
+        return new ResponseEntity<>(ADD_SUCCESS, HttpStatus.CREATED);
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public ResponseEntity<?> updateProduct(@PathVariable("id") BigInteger id, @RequestBody Product product) {
+    @RequestMapping(value = "/{id}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<String> updateProduct(@PathVariable("id") BigInteger id, @RequestBody Product product) {
         productService.updateProduct(id, product);
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(UPDATE_SUCCESS, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    public ResponseEntity<?> deleteProduct(@PathVariable("id") BigInteger id) {
+    public ResponseEntity<String> deleteProduct(@PathVariable("id") BigInteger id) {
         productService.deleteProduct(id);
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(DELETE_SUCCESS, HttpStatus.OK);
     }
 
     private ListWrapper getWrappedList(List<Product> products) {

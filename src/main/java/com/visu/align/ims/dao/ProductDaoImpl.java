@@ -2,7 +2,6 @@ package com.visu.align.ims.dao;
 
 import com.visu.align.ims.entity.Product;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -10,7 +9,6 @@ import java.math.BigInteger;
 import java.util.List;
 
 @Repository
-@Transactional
 public class ProductDaoImpl implements ProductDao {
 
     private static final String NAME_ATTR = "name";
@@ -59,12 +57,11 @@ public class ProductDaoImpl implements ProductDao {
 
     @Override
     public void updateProduct(Product product) {
-        entityManager.persist(product);
+        entityManager.merge(product);
     }
 
     @Override
-    public void deleteProduct(BigInteger id) {
-        Product product = entityManager.find(Product.class, id);
+    public void deleteProduct(Product product) {
         entityManager.remove(product);
     }
 }
