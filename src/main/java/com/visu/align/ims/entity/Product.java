@@ -2,6 +2,7 @@ package com.visu.align.ims.entity;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.math.BigInteger;
 
 @Entity
 @Table(name = "products")
@@ -9,7 +10,7 @@ public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", unique = true, nullable = false)
-    private long id;
+    private BigInteger id;
 
     @Column(name = "name")
     private String name;
@@ -23,11 +24,11 @@ public class Product {
     @Column(name = "quantity")
     private int quantity;
 
-    public long getId() {
+    public BigInteger getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(BigInteger id) {
         this.id = id;
     }
 

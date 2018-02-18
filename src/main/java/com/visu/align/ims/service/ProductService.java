@@ -2,19 +2,22 @@ package com.visu.align.ims.service;
 
 import com.visu.align.ims.entity.Product;
 
+import java.math.BigInteger;
 import java.util.List;
 
 public interface ProductService {
 
-    List<Product> getProductByName(String name);
+    Product getProductById(BigInteger id);
 
-    List<Product> getProductByBrand(String brand);
+    List<Product> getProductsByName(String name);
 
-    List<Product> getLeftOvers();
+    List<Product> getProductsByBrand(String brand);
+
+    List<Product> getLeftovers();
 
     void addProduct(Product product);
 
-    void updateProduct(Product product);
+    void updateProduct(BigInteger id, Product product);
 
-    void deleteProduct(Product product);
+    void deleteProduct(BigInteger id);
 }
