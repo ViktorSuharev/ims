@@ -35,21 +35,21 @@ public class ProductServiceImpl implements ProductService {
         return productDao.getLeftovers();
     }
 
-    @Transactional
     @Override
+    @Transactional
     public void addProduct(Product product) {
         productDao.addProduct(product);
     }
 
-    @Transactional
     @Override
+    @Transactional
     public void updateProduct(BigInteger id, Product updProduct) {
         updProduct.setId(id);
         productDao.updateProduct(updProduct);
     }
 
-    @Transactional
     @Override
+    @Transactional
     public void deleteProduct(BigInteger id) {
         Product product = productDao.getProductById(id);
         productDao.deleteProduct(product);
