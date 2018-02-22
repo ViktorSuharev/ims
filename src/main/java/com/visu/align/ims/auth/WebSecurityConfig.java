@@ -16,22 +16,21 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-	/**
-	 * Constructor disables the default security settings
-	 */
 	public WebSecurityConfig() {
 		super(true);
 	}
 
 	@Override
-	public void configure(WebSecurity web) throws Exception {
+	public void configure(WebSecurity web) {
 		web.ignoring().antMatchers("/login");
 	}
 	
 	@Override
 	public void configure(HttpSecurity http) throws Exception {
 		http.antMatcher("/align/**")
-				.authorizeRequests().anyRequest().authenticated();
+				.authorizeRequests()
+				.anyRequest()
+				.authenticated();
 	}
 
 	@Bean

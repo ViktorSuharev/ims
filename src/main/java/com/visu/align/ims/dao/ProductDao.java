@@ -1,7 +1,6 @@
 package com.visu.align.ims.dao;
 
 import com.visu.align.ims.entity.Product;
-import org.springframework.data.repository.CrudRepository;
 
 import java.math.BigInteger;
 import java.util.List;

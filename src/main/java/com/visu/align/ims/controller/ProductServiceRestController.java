@@ -8,6 +8,7 @@ import org.springframework.hateoas.ResourceSupport;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,6 +34,7 @@ public class ProductServiceRestController {
     @Autowired
     private WrapperService wrapperService;
 
+    @PreAuthorize("#oauth2.hasScope('read')")
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<ResourceSupport> getProductById(@PathVariable("id") BigInteger id) {
         Product product = productService.getProductById(id);
@@ -41,6 +43,7 @@ public class ProductServiceRestController {
         return buildResponse(objWrapper, HttpStatus.OK);
     }
 
+    @PreAuthorize("#oauth2.hasScope('write')")
     @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ResourceSupport> addProduct(@RequestBody Product product) {
         productService.addProduct(product);
@@ -51,6 +54,7 @@ public class ProductServiceRestController {
         return buildResponse(messageWrapper, HttpStatus.CREATED);
     }
 
+    @PreAuthorize("#oauth2.hasScope('write')")
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ResourceSupport> updateProduct(@PathVariable("id") BigInteger id, @RequestBody Product product) {
         productService.updateProduct(id, product);
@@ -61,6 +65,8 @@ public class ProductServiceRestController {
         return buildResponse(messageWrapper, HttpStatus.OK);
     }
 
+
+    @PreAuthorize("#oauth2.hasScope('write')")
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<ResourceSupport> deleteProduct(@PathVariable("id") BigInteger id) {
         productService.deleteProduct(id);
@@ -71,6 +77,7 @@ public class ProductServiceRestController {
         return buildResponse(messageWrapper, HttpStatus.OK);
     }
 
+    @PreAuthorize("#oauth2.hasScope('read')")
     @RequestMapping(value = "/search/name/{name}", method = RequestMethod.GET)
     public ResponseEntity<ResourceSupport> getProductsByName(@PathVariable("name") String name) {
         List<Product> products = productService.getProductsByName(name);
@@ -79,6 +86,7 @@ public class ProductServiceRestController {
         return buildResponse(listWrapper, HttpStatus.OK);
     }
 
+    @PreAuthorize("#oauth2.hasScope('read')")
     @RequestMapping(value = "/search/brand/{brand}", method = RequestMethod.GET)
     public ResponseEntity<ResourceSupport> getProductsByBrand(@PathVariable("brand") String brand) {
         List<Product> products = productService.getProductsByBrand(brand);
@@ -87,6 +95,7 @@ public class ProductServiceRestController {
         return buildResponse(listWrapper, HttpStatus.OK);
     }
 
+    @PreAuthorize("#oauth2.hasScope('read')")
     @RequestMapping(value = "/leftovers", method = RequestMethod.GET)
     public ResponseEntity<ResourceSupport> getLeftovers() {
         List<Product> products = productService.getLeftovers();

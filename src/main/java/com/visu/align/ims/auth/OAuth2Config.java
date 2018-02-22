@@ -1,8 +1,6 @@
 package com.visu.align.ims.auth;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -18,32 +16,44 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Aut
 @EnableAuthorizationServer
 public class OAuth2Config extends AuthorizationServerConfigurerAdapter {
 
+	private static final int OAUTH_TOKEN_EXPIRATION = 600;
+	private static final String ADMIN_CLIENT_ID = "admin";
+	private static final String USER_CLIENT_ID = "user";
+	private static final String SECRET = "secret";
+
 	@Autowired
-	@Qualifier("userDetailsService")
 	private UserDetailsService userDetailsService;
 
 	@Autowired
 	private AuthenticationManager authenticationManager;
 
-	@Value("${gigy.oauth.tokenTimeout:3600}")
-	private int expiration;
-
-	// password encryptor
 	@Bean
 	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
 
 	@Override
-	public void configure(AuthorizationServerEndpointsConfigurer configurer) throws Exception {
+	public void configure(AuthorizationServerEndpointsConfigurer configurer) {
 		configurer.authenticationManager(authenticationManager);
 		configurer.userDetailsService(userDetailsService);
 	}
 
 	@Override
 	public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-		clients.inMemory().withClient("client").secret("secret").accessTokenValiditySeconds(expiration)
-				.scopes("read", "write").authorizedGrantTypes("password", "refresh_token").resourceIds("resource");
+		clients.inMemory()
+				.withClient(USER_CLIENT_ID)
+				.secret(SECRET)
+				.accessTokenValiditySeconds(OAUTH_TOKEN_EXPIRATION)
+				.scopes("read")
+				.authorizedGrantTypes("password", "refresh_token")
+				.resourceIds("resource")
+				.and()
+				.withClient(ADMIN_CLIENT_ID)
+				.secret(SECRET)
+				.accessTokenValiditySeconds(OAUTH_TOKEN_EXPIRATION)
+				.scopes("read", "write")
+				.authorizedGrantTypes("password", "refresh_token")
+				.resourceIds("resource");
 	}
 
 }
