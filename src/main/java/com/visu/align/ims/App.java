@@ -5,6 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.Statement;
 
 @SpringBootApplication
@@ -27,7 +28,7 @@ public class App {
 
 	public static void main(String[] args) throws Exception {
 		SpringApplication.run(App.class, args);
-		createData();
+//		createData();
 	}
 
 	private static void createData() throws Exception {
@@ -39,6 +40,13 @@ public class App {
 		stmt.executeUpdate(QUERY_INSERT_PRODUCT1_TEST_DATA);
 		stmt.executeUpdate(QUERY_INSERT_PRODUCT2_TEST_DATA);
 		stmt.executeUpdate(QUERY_INSERT_PRODUCT3_TEST_DATA);
+
+		ResultSet rs = stmt.executeQuery("SELECT * FROM users WHERE username='admin'");
+		if (rs == null) {
+			System.out.println("no admin user configured");
+		} else {
+			System.out.println(rs.getRow());
+		}
 
 		connection.close();
 		stmt.close();

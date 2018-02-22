@@ -2,7 +2,12 @@ package com.visu.align.ims.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Objects;
@@ -10,9 +15,10 @@ import java.util.Objects;
 @Entity
 @Table(name = "products")
 public class Product {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", unique = true, nullable = false)
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id", columnDefinition = "BIGINT", unique = true, nullable = false, updatable = false)
     private BigInteger id;
 
     @Column(name = "name")
