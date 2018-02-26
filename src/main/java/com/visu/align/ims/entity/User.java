@@ -1,6 +1,7 @@
 package com.visu.align.ims.entity;
 
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.Column;
@@ -9,16 +10,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
 public class User implements UserDetails {
-	
-	static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "user_id", nullable = false, updatable = false)
@@ -33,10 +31,13 @@ public class User implements UserDetails {
 	@Column(name = "enabled", nullable = false)
 	private boolean enabled;
 
+	@Column(name = "role", nullable = false)
+	private String role;
+
 	@Override
-	public Collection<? extends GrantedAuthority> getAuthorities() {
-		List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
-		
+	public Set<GrantedAuthority> getAuthorities() {
+		Set<GrantedAuthority> authorities = new HashSet<>();
+		authorities.add(new SimpleGrantedAuthority(this.role));
 		return authorities;
 	}
 
@@ -47,13 +48,11 @@ public class User implements UserDetails {
 
 	@Override
 	public boolean isAccountNonLocked() {
-		// we never lock accounts
 		return true;
 	}
 
 	@Override
 	public boolean isCredentialsNonExpired() {
-		// credentials never expire
 		return true;
 	}
 

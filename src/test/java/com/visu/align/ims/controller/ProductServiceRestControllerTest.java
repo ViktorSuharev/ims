@@ -1,5 +1,6 @@
 package com.visu.align.ims.controller;
 
+import com.visu.align.ims.controller.wrapper.impl.WrapperServiceImpl;
 import com.visu.align.ims.service.ProductService;
 import com.visu.align.ims.util.TestUtil;
 import org.junit.Test;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
@@ -20,6 +22,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(ProductServiceRestController.class)
+@ContextConfiguration(classes = {WrapperServiceImpl.class})
 public class ProductServiceRestControllerTest {
 
     @Autowired

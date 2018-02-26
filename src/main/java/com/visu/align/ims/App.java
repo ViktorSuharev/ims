@@ -1,54 +1,11 @@
 package com.visu.align.ims;
 
-import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import org.springframework.boot.SpringApplication;
 
 @SpringBootApplication
 public class App {
-
-	public static String QUERY_INSERT_PRODUCT1_TEST_DATA =
-			"INSERT INTO products \n" +
-					"   (id, name, brand, price, quantity)" +
-					"   VALUES ( 1, 'prod1', 'brand1', 1, 1)";
-
-	public static String QUERY_INSERT_PRODUCT2_TEST_DATA =
-			"INSERT INTO products \n" +
-					"   (id, name, brand, price, quantity)" +
-					"   VALUES ( 2, 'prod2', 'brand2', 2, 10)";
-
-	public static String QUERY_INSERT_PRODUCT3_TEST_DATA =
-			"INSERT INTO products \n" +
-					"   (id, name, brand, price, quantity)" +
-					"   VALUES ( 3, 'prod3', 'brand3', 3, 100)";
-
-	public static void main(String[] args) throws Exception {
+	public static void main(String[] args) {
 		SpringApplication.run(App.class, args);
-//		createData();
-	}
-
-	private static void createData() throws Exception {
-		String DB_CONNECTION_URL = "jdbc:h2:mem:test;DB_CLOSE_ON_EXIT=FALSE";
-
-		Connection connection = DriverManager.getConnection(DB_CONNECTION_URL, "h2", "h2");
-		Statement stmt = connection.createStatement();
-
-		stmt.executeUpdate(QUERY_INSERT_PRODUCT1_TEST_DATA);
-		stmt.executeUpdate(QUERY_INSERT_PRODUCT2_TEST_DATA);
-		stmt.executeUpdate(QUERY_INSERT_PRODUCT3_TEST_DATA);
-
-		ResultSet rs = stmt.executeQuery("SELECT * FROM users WHERE username='admin'");
-		if (rs == null) {
-			System.out.println("no admin user configured");
-		} else {
-			System.out.println(rs.getRow());
-		}
-
-		connection.close();
-		stmt.close();
 	}
 }

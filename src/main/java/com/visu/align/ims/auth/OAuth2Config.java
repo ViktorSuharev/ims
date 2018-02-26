@@ -17,9 +17,13 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Aut
 public class OAuth2Config extends AuthorizationServerConfigurerAdapter {
 
 	private static final int OAUTH_TOKEN_EXPIRATION = 600;
-	private static final String ADMIN_CLIENT_ID = "admin";
-	private static final String USER_CLIENT_ID = "user";
+	private static final String CLIENT_ID = "client";
 	private static final String SECRET = "secret";
+	private static final String READ_SCOPE = "read";
+	private static final String WRITE_SCOPE = "write";
+	private static final String PASSWORD_GRANT_TYPE = "password";
+	private static final String REFRESH_TOKEN_GRANT_TYPE = "refresh_token";
+	private static final String[] ALL_AUTHORITIES = {"USER", "ADMIN"};
 
 	@Autowired
 	private UserDetailsService userDetailsService;
@@ -41,19 +45,11 @@ public class OAuth2Config extends AuthorizationServerConfigurerAdapter {
 	@Override
 	public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
 		clients.inMemory()
-				.withClient(USER_CLIENT_ID)
+				.withClient(CLIENT_ID)
 				.secret(SECRET)
 				.accessTokenValiditySeconds(OAUTH_TOKEN_EXPIRATION)
-				.scopes("read")
-				.authorizedGrantTypes("password", "refresh_token")
-				.resourceIds("resource")
-				.and()
-				.withClient(ADMIN_CLIENT_ID)
-				.secret(SECRET)
-				.accessTokenValiditySeconds(OAUTH_TOKEN_EXPIRATION)
-				.scopes("read", "write")
-				.authorizedGrantTypes("password", "refresh_token")
-				.resourceIds("resource");
+				.scopes(READ_SCOPE, WRITE_SCOPE)
+				.authorizedGrantTypes(PASSWORD_GRANT_TYPE, REFRESH_TOKEN_GRANT_TYPE)
+				.authorities(ALL_AUTHORITIES);
 	}
-
 }
