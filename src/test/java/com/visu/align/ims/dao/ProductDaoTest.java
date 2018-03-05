@@ -50,7 +50,7 @@ public class ProductDaoTest {
 
     @Test
     public void testGetProductById() {
-        Product product = productDao.getProductById(BigInteger.ONE);
+        Product product = productDao.findOne(BigInteger.ONE);
         Assert.assertNotNull("There is no product with specified id", product);
 
         Assert.assertEquals(TestUtil.product1, product);
@@ -93,7 +93,7 @@ public class ProductDaoTest {
         Assert.assertEquals("Expected no products with specified name", 0, products.size());
 
         Product productToBeAdded = TestUtil.createTestProduct(null, NAME, "brand", BigDecimal.TEN, 3);
-        productDao.addProduct(productToBeAdded);
+        productDao.save(productToBeAdded);
 
         products = productDao.getProductsByName(NAME);
         Assert.assertEquals("Expected 1 product with specified name", 1, products.size());
@@ -105,13 +105,13 @@ public class ProductDaoTest {
     @Test
     @Transactional
     public void testUpdateProduct() {
-        Product productToBeUpdated = productDao.getProductById(BigInteger.ONE);
+        Product productToBeUpdated = productDao.findOne(BigInteger.ONE);
         Assert.assertEquals("Expected product with name = name1","name1", productToBeUpdated.getName());
         Product product = TestUtil.createTestProduct(BigInteger.ONE, "name", "brand", BigDecimal.TEN, 3);
 
-        productDao.updateProduct(product);
+        productDao.save(product);
 
-        Product updatedProduct = productDao.getProductById(BigInteger.ONE);
+        Product updatedProduct = productDao.findOne(BigInteger.ONE);
         TestUtil.assertProductContent(product, updatedProduct);
     }
 
@@ -121,12 +121,12 @@ public class ProductDaoTest {
         Product productToBeDeleted = TestUtil.createTestProduct(BigInteger.ONE, "name", "brand", BigDecimal.TEN, 3);
         BigInteger PRODUCT_ID = productToBeDeleted.getId();
 
-        Product product = productDao.getProductById(PRODUCT_ID);
+        Product product = productDao.findOne(PRODUCT_ID);
         Assert.assertNotNull("There is no product with specified PRODUCT_ID", product);
 
-        productDao.deleteProduct(product);
+        productDao.delete(product);
 
-        product = productDao.getProductById(PRODUCT_ID);
+        product = productDao.findOne(PRODUCT_ID);
         Assert.assertNull("Product with specified PRODUCT_ID has not been deleted", product);
     }
 }

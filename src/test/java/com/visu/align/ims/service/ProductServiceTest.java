@@ -1,7 +1,6 @@
 package com.visu.align.ims.service;
 
 import com.visu.align.ims.dao.ProductDao;
-import com.visu.align.ims.dao.ProductDaoImpl;
 import com.visu.align.ims.entity.Product;
 import com.visu.align.ims.util.TestQuery;
 import com.visu.align.ims.util.TestUtil;
@@ -59,7 +58,7 @@ public class ProductServiceTest {
 
     @Test
     public void testGetProductById() {
-        BDDMockito.given(productDao.getProductById(Matchers.anyObject()))
+        BDDMockito.given(productDao.findOne(Matchers.anyObject()))
                 .willReturn(TestUtil.product1);
 
         Product product = productService.getProductById(BigInteger.ONE);
@@ -108,8 +107,8 @@ public class ProductServiceTest {
 
     @Test
     public void testAddProduct() {
-        productDao = Mockito.mock(ProductDaoImpl.class);
-        Mockito.doCallRealMethod().when(productDao).addProduct(Matchers.anyObject());
+        productDao = Mockito.mock(ProductDao.class);
+        Mockito.doCallRealMethod().when(productDao).save(Matchers.any(Product.class));
 
         String PRODUCT_NAME = "name";
         List<Product> products = productService.getProductsByName(PRODUCT_NAME);
@@ -124,7 +123,7 @@ public class ProductServiceTest {
         Product product = products.get(0);
         TestUtil.assertProductContent(product, productToBeAdded);
 
-        Mockito.verify(productDao, Mockito.times(1)).addProduct(productToBeAdded);
+        Mockito.verify(productDao, Mockito.times(1)).save(productToBeAdded);
     }
 
     @Test
