@@ -54,10 +54,7 @@ public class AnotherTest {
 
         System.out.println(result.getResponse().getContentAsString());
         System.out.println(result.getResponse().getStatus());
-
-/*                .andExpect(status().isOk())
-                .andExpect((ResultMatcher) content().contentType("application/json"))
-                .andExpect((ResultMatcher) jsonPath("$.name").value("Lee"));*/
+        
     }
 
 }
