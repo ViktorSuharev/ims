@@ -1,6 +1,6 @@
 package com.visu.align.ims.util;
 
-import com.visu.align.ims.entity.Product;
+import com.visu.align.ims.model.Product;
 import org.junit.Assert;
 
 import java.math.BigDecimal;
@@ -15,8 +15,8 @@ public class TestUtil {
     public static final String H2_PASSWORD = "h2";
 
     public static final Product product1 = createTestProduct(BigInteger.ONE, "name1", "brand1", BigDecimal.ONE, 1);
-    public static final Product product2 = createTestProduct(BigInteger.valueOf(2), "name1", "brand2", BigDecimal.valueOf(2), 10);
-    public static final Product product3 = createTestProduct(BigInteger.valueOf(3), "name2", "brand2", BigDecimal.valueOf(3), 100);
+    public static final Product product2 = createTestProduct(BigInteger.valueOf(2), "name1", "brand2", BigDecimal.valueOf(2), 2);
+    public static final Product product3 = createTestProduct(BigInteger.valueOf(3), "name2", "brand2", BigDecimal.valueOf(10), 10);
 
     public static Product createTestProduct(BigInteger id, String name, String brand, BigDecimal price, int quantity) {
         Product product = new Product();

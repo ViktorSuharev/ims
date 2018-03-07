@@ -4,7 +4,7 @@ import static org.springframework.security.test.web.servlet.request.SecurityMock
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import com.visu.align.ims.controller.wrapper.impl.WrapperServiceImpl;
+import com.visu.align.ims.web.wrapper.impl.WrapperServiceImpl;
 import com.visu.align.ims.service.ProductService;
 import org.junit.Before;
 import org.junit.Test;

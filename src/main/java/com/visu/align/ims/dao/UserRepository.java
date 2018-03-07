@@ -1,6 +1,6 @@
 package com.visu.align.ims.dao;
 
-import com.visu.align.ims.entity.User;
+import com.visu.align.ims.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**

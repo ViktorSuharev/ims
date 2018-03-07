@@ -1,7 +1,7 @@
 package com.visu.align.ims.service;
 
 import com.visu.align.ims.dao.ProductDao;
-import com.visu.align.ims.entity.Product;
+import com.visu.align.ims.model.Product;
 import com.visu.align.ims.util.TestQuery;
 import com.visu.align.ims.util.TestUtil;
 import org.junit.After;
@@ -95,7 +95,7 @@ public class ProductServiceTest {
 
     @Test
     public void testGetLeftovers() {
-        BDDMockito.given(productDao.getLeftovers())
+        BDDMockito.given(productDao.getLeftovers(5))
                 .willReturn(Arrays.asList(TestUtil.product1, TestUtil.product3));
 
         List<Product> products = productService.getLeftovers();

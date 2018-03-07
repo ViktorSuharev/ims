@@ -10,7 +10,7 @@ CREATE TABLE users (
 DROP TABLE IF EXISTS products;
 CREATE TABLE products (
     id BIGINT PRIMARY KEY auto_increment,
-    name VARCHAR(128) UNIQUE,
+    name VARCHAR(128),
     brand VARCHAR(128),
     price DECIMAL,
     quantity INT,

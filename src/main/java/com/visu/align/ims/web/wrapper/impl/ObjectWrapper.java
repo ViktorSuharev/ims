@@ -1,4 +1,4 @@
-package com.visu.align.ims.controller.wrapper.impl;
+package com.visu.align.ims.web.wrapper.impl;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;

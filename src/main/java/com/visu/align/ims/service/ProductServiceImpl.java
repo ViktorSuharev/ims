@@ -1,7 +1,7 @@
 package com.visu.align.ims.service;
 
 import com.visu.align.ims.dao.ProductDao;
-import com.visu.align.ims.entity.Product;
+import com.visu.align.ims.model.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

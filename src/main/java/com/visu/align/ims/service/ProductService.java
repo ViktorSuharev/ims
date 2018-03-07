@@ -1,6 +1,6 @@
 package com.visu.align.ims.service;
 
-import com.visu.align.ims.entity.Product;
+import com.visu.align.ims.model.Product;
 
 import java.math.BigInteger;
 import java.util.List;

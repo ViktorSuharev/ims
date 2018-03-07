@@ -1,6 +1,6 @@
 package com.visu.align.ims.dao;
 
-import com.visu.align.ims.entity.Product;
+import com.visu.align.ims.model.Product;
 import com.visu.align.ims.util.TestQuery;
 import com.visu.align.ims.util.TestUtil;
 import org.junit.After;
@@ -10,6 +10,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,6 +24,7 @@ import java.util.List;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
+@TestPropertySource(locations="classpath:data.sql")
 public class ProductDaoTest {
 
     private Connection connection;
@@ -36,6 +38,7 @@ public class ProductDaoTest {
         connection = DriverManager.getConnection(TestUtil.H2_CONNECTION_URL, TestUtil.H2_USER_NAME, TestUtil.H2_PASSWORD);
         statement = connection.createStatement();
 
+        statement.executeUpdate(TestQuery.DELETE_ALL_ROWS);
         statement.executeUpdate(TestQuery.QUERY_INSERT_PRODUCT1_TEST_DATA);
         statement.executeUpdate(TestQuery.QUERY_INSERT_PRODUCT2_TEST_DATA);
         statement.executeUpdate(TestQuery.QUERY_INSERT_PRODUCT3_TEST_DATA);
@@ -78,11 +81,11 @@ public class ProductDaoTest {
 
     @Test
     public void testGetLeftovers() {
-        List<Product> products = productDao.getLeftovers();
+        List<Product> products = productDao.getLeftovers(5);
         Assert.assertEquals("Expected 2 products with quantity less than 5", 2, products.size());
 
         Assert.assertTrue(products.contains(TestUtil.product1));
-        Assert.assertTrue(products.contains(TestUtil.product3));
+        Assert.assertTrue(products.contains(TestUtil.product2));
     }
 
     @Test
@@ -130,3 +133,5 @@ public class ProductDaoTest {
         Assert.assertNull("Product with specified PRODUCT_ID has not been deleted", product);
     }
 }
+
+

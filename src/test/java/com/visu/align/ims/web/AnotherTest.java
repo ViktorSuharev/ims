@@ -1,9 +1,8 @@
-package com.visu.align.ims.controller;
+package com.visu.align.ims.web;
 
-import com.visu.align.ims.controller.wrapper.WrapperService;
-import com.visu.align.ims.controller.wrapper.impl.WrapperServiceImpl;
+import com.visu.align.ims.web.wrapper.WrapperService;
+import com.visu.align.ims.web.wrapper.impl.WrapperServiceImpl;
 import com.visu.align.ims.service.ProductService;
-import com.visu.align.ims.service.ProductServiceImpl;
 import com.visu.align.ims.util.TestUtil;
 import org.junit.Before;
 import org.junit.Test;

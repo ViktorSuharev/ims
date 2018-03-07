@@ -1,7 +1,7 @@
-package com.visu.align.ims.controller;
+package com.visu.align.ims.web;
 
-import com.visu.align.ims.controller.wrapper.WrapperService;
-import com.visu.align.ims.entity.Product;
+import com.visu.align.ims.web.wrapper.WrapperService;
+import com.visu.align.ims.model.Product;
 import com.visu.align.ims.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.ResourceSupport;

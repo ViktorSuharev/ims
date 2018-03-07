@@ -1,6 +1,6 @@
-package com.visu.align.ims.controller.wrapper;
+package com.visu.align.ims.web.wrapper;
 
-import com.visu.align.ims.entity.Product;
+import com.visu.align.ims.model.Product;
 import org.springframework.hateoas.ResourceSupport;
 import org.springframework.http.ResponseEntity;
 

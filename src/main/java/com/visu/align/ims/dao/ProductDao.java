@@ -1,6 +1,6 @@
 package com.visu.align.ims.dao;
 
-import com.visu.align.ims.entity.Product;
+import com.visu.align.ims.model.Product;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;

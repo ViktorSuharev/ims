@@ -1,4 +1,4 @@
-package com.visu.align.ims.entity;
+package com.visu.align.ims.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -81,7 +81,9 @@ public class Product {
         Product product = (Product) o;
         return Objects.equals(id, product.id) &&
                 Objects.equals(name, product.name) &&
-                Objects.equals(brand, product.brand);
+                Objects.equals(brand, product.brand) &&
+                price.compareTo(product.price) == 0 &&
+                quantity == product.quantity;
     }
 
     @Override

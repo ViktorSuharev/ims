@@ -1,4 +1,4 @@
-package com.visu.align.ims.entity;
+package com.visu.align.ims.model;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
